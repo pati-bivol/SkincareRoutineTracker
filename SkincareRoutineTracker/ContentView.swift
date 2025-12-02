@@ -25,7 +25,7 @@ struct ContentView: View {
             ProductDetailPageView()
                 .tabItem{
                     Label("About Products", systemImage: "4.circle")
-                }
+                } // comment
         }
     }
 }
