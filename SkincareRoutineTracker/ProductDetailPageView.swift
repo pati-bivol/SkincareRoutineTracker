@@ -8,11 +8,30 @@
 import SwiftUI
 
 struct ProductDetailPageView: View {
+    let product: Product
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 16) {
+            Text(product.name)
+                .font(.title)
+                .bold()
+            
+            Text(product.category)
+                .font(.headline)
+                .foregroundColor(.gray)
+            
+            // later: add ingredients + "can / can't mix" sections here
+            
+            Spacer()
+        }
+        .padding()
+        .navigationTitle("Product Details")
+//        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
-    ProductDetailPageView()
+    ProductDetailPageView(
+        product: Product(name: "Sample Product", category: "Serum")
+    )
 }

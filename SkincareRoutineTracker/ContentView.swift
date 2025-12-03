@@ -11,21 +11,25 @@ struct ContentView: View {
     var body: some View {
         TabView {
             HomePageView()
-            .tabItem{
-                Label("Home", systemImage: "1.circle")
+            .tabItem {
+                Label("Home", systemImage: "house")
             }
             RoutinePageView()
-                .tabItem{
-                    Label("Routine", systemImage: "2.circle")
+                .tabItem {
+                    Label("Routine", systemImage: "list.bullet.rectangle")
                 }
             SkinConcernsPageView()
-                .tabItem{
-                    Label("Skin Concerns", systemImage: "3.circle")
+                .tabItem {
+                    Label("Skin Concerns", systemImage: "heart.text.square")
                 }
-            ProductDetailPageView()
-                .tabItem{
-                    Label("About Products", systemImage: "4.circle")
-                } // comment
+            AllProductsView()
+                .tabItem {
+                    Label("View All", systemImage: "shippingbox")
+                }
+//            ProductDetailPageView()
+//                .tabItem {
+//                    Label("About Products", systemImage: "5.circle")
+//                } // eventually move this, take user to this view when a product is clicked
         }
     }
 }
