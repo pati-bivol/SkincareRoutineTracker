@@ -26,7 +26,6 @@ struct ProductDetailPageView: View {
         }
         .padding()
         .navigationTitle("Product Details")
-//        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

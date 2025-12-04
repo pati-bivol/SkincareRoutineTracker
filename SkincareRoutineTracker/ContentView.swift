@@ -14,10 +14,10 @@ struct ContentView: View {
             .tabItem {
                 Label("Home", systemImage: "house")
             }
-            RoutinePageView()
-                .tabItem {
-                    Label("Routine", systemImage: "list.bullet.rectangle")
-                }
+//            RoutinePageView()
+//                .tabItem {
+//                    Label("Routine", systemImage: "list.bullet.rectangle")
+//                }
             SkinConcernsPageView()
                 .tabItem {
                     Label("Skin Concerns", systemImage: "heart.text.square")
@@ -26,10 +26,6 @@ struct ContentView: View {
                 .tabItem {
                     Label("View All", systemImage: "shippingbox")
                 }
-//            ProductDetailPageView()
-//                .tabItem {
-//                    Label("About Products", systemImage: "5.circle")
-//                } // eventually move this, take user to this view when a product is clicked
         }
     }
 }
