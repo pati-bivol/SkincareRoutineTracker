@@ -10,57 +10,35 @@ import SwiftUI
 struct SkinConcern: Identifiable {
     var id = UUID()
     var name: String
-    var focus: String           // main skincare focus
-    var suggestedProducts: [String]
+    var focus: String
     var isSelected: Bool = false
 }
 
-struct SkinConcernsPageView: View {    
+struct SkinConcernsPageView: View {
+    
+    // Load all products from JSON
+    private let allProducts: [Product] = ProductManager.shared.loadProducts()
+    
     @State private var concerns: [SkinConcern] = [
         SkinConcern(
             name: "Acne / Breakouts",
-            focus: "Oil control, gentle exfoliation, and non-comedogenic products.",
-            suggestedProducts: [
-                "Salicylic acid (BHA) cleanser",
-                "Niacinamide serum",
-                "Lightweight gel moisturizer"
-            ]
+            focus: "Oil control, gentle exfoliation, acne treatments, and non-comedogenic products."
         ),
         SkinConcern(
             name: "Dryness / Dehydration",
-            focus: "Hydration and barrier repair with humectants and ceramides.",
-            suggestedProducts: [
-                "Hyaluronic acid serum",
-                "Ceramide moisturizer",
-                "Gentle hydrating cleanser"
-            ]
+            focus: "Hydration, barrier repair, ceramides, and gentle cleansers."
         ),
         SkinConcern(
             name: "Dark Spots / Hyperpigmentation",
-            focus: "Brightening and evening skin tone.",
-            suggestedProducts: [
-                "Vitamin C serum",
-                "Niacinamide serum",
-                "Daily sunscreen (SPF 30+)"
-            ]
+            focus: "Brightening products, exfoliation, and daily SPF."
         ),
         SkinConcern(
             name: "Redness / Sensitivity",
-            focus: "Soothing and barrier-supporting products.",
-            suggestedProducts: [
-                "Fragrance-free moisturizer",
-                "Centella asiatica (cica) cream",
-                "Mineral sunscreen"
-            ]
+            focus: "Soothing ingredients and barrier-supporting creams."
         ),
         SkinConcern(
             name: "Dullness / Uneven Texture",
-            focus: "Gentle exfoliation and hydration.",
-            suggestedProducts: [
-                "Lactic acid (AHA) toner",
-                "Hydrating serum",
-                "Moisturizer with peptides"
-            ]
+            focus: "Gentle exfoliation and hydration."
         )
     ]
     
@@ -68,17 +46,57 @@ struct SkinConcernsPageView: View {
         concerns.filter { $0.isSelected }
     }
     
+    // MARK: - Recommendation Logic
+    func recommendedProducts(for concern: SkinConcern) -> [Product] {
+        switch concern.name {
+            
+        case "Acne / Breakouts":
+            return allProducts.filter {
+                $0.name.contains("BHA") ||
+                $0.name.contains("Onexton") ||
+                $0.name.contains("Arazlo")
+            }
+            
+        case "Dryness / Dehydration":
+            return allProducts.filter {
+                $0.name.contains("Aqua Veil") ||
+                $0.name.contains("Rose Day Cream") ||
+                $0.name.contains("Hydrating Cleanser")
+            }
+            
+        case "Dark Spots / Hyperpigmentation":
+            return allProducts.filter {
+                $0.name.contains("BHA") ||
+                $0.name.contains("SPF")
+            }
+            
+        case "Redness / Sensitivity":
+            return allProducts.filter {
+                $0.name.contains("Hydrating Cleanser") ||
+                $0.name.contains("Rose Day Cream")
+            }
+            
+        case "Dullness / Uneven Texture":
+            return allProducts.filter {
+                $0.name.contains("Exfolipowder") ||
+                $0.name.contains("BHA")
+            }
+            
+        default:
+            return []
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     
-                    // Instructions
-                    Text("Select the skin concerns that best describe you. We’ll suggest a general skincare focus and product types you might want to include in your routine.")
+                    Text("Select your skin concerns to see personalized product recommendations.")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
-                    // Concerns list
+                    // MARK: - Concern selection list
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Your Skin Concerns")
                             .font(.headline)
@@ -95,18 +113,19 @@ struct SkinConcernsPageView: View {
                     
                     Divider()
                     
-                    // Suggested focus based on selection
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Suggested Skincare Focus")
+                    // MARK: - Recommendations
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("Recommended Products")
                             .font(.headline)
                         
                         if selectedConcerns.isEmpty {
-                            Text("Select at least one concern above to see suggestions.")
+                            Text("Select a concern to see personalized product recommendations.")
                                 .foregroundColor(.gray)
                                 .font(.subheadline)
                         } else {
                             ForEach(selectedConcerns) { concern in
                                 VStack(alignment: .leading, spacing: 8) {
+                                    
                                     Text(concern.name)
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
@@ -114,13 +133,19 @@ struct SkinConcernsPageView: View {
                                     Text(concern.focus)
                                         .font(.subheadline)
                                     
-                                    Text("Suggested product types:")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
+                                    let recs = recommendedProducts(for: concern)
                                     
-                                    ForEach(concern.suggestedProducts, id: \.self) { product in
-                                        Text("• \(product)")
+                                    if recs.isEmpty {
+                                        Text("No specific recommendations available.")
                                             .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    } else {
+                                        ForEach(recs, id: \.self) { product in
+                                            NavigationLink(destination: ProductDetailPageView(product: product)) {
+                                                Text("• \(product.name)")
+                                                    .font(.subheadline)
+                                            }
+                                        }
                                     }
                                 }
                                 .padding()
@@ -139,7 +164,7 @@ struct SkinConcernsPageView: View {
     }
 }
 
-// Small row view for each concern
+// MARK: - Concern Row
 struct ConcernRow: View {
     let concern: SkinConcern
     let toggleAction: () -> Void
@@ -159,7 +184,6 @@ struct ConcernRow: View {
         }
     }
 }
-
 
 #Preview {
     SkinConcernsPageView()

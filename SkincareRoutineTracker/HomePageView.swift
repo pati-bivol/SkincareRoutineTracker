@@ -52,7 +52,9 @@ struct HomePageView: View {
                             .font(.subheadline)
                             .foregroundColor(.gray)
                         
-                        NavigationLink(destination: RoutinePageView()) {
+                        NavigationLink(
+                            destination: RoutinePageView(kind: .morning)
+                        ) {
                             Text("Go to Morning Routine")
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -77,7 +79,9 @@ struct HomePageView: View {
                             .font(.subheadline)
                             .foregroundColor(.gray)
                         
-                        NavigationLink(destination: RoutinePageView()) {
+                        NavigationLink(
+                            destination: RoutinePageView(kind: .night)
+                        ) {
                             Text("Go to Night Routine")
                                 .frame(maxWidth: .infinity)
                                 .padding()

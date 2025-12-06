@@ -1,0 +1,47 @@
+[
+  {
+    "name": "CeraVe Hydrating Cleanser",
+    "category": "Cleanser",
+    "description": "A gentle, non-foaming cleanser that removes dirt and oil without stripping the skin barrier. Good for normal to dry skin and morning or night use."
+  },
+  {
+    "name": "Paula's Choice BHA",
+    "category": "Exfoliant",
+    "description": "A leave-on 2% BHA (salicylic acid) exfoliant that helps unclog pores, smooth texture, and reduce blackheads. Best used at night a few times per week."
+  },
+  {
+    "name": "Arazlo",
+    "category": "Medication",
+    "description": "A prescription-strength topical retinoid used to treat acne and improve skin texture. Typically applied at night on dry skin as directed by a dermatologist."
+  },
+  {
+    "name": "Onexton",
+    "category": "Medication",
+    "description": "A prescription topical treatment combining benzoyl peroxide and clindamycin, used to reduce acne-causing bacteria and inflammation. Usually applied once daily."
+  },
+  {
+    "name": "Aquaphor Lip Treatment",
+    "category": "Lip Care",
+    "description": "An occlusive lip treatment that locks in moisture and protects dry, chapped lips. Ideal as the last step of an evening routine or as needed throughout the day."
+  },
+  {
+    "name": "Amarte Aqua Veil",
+    "category": "Moisturizer",
+    "description": "A lightweight, hydrating gel-cream moisturizer that adds moisture without heaviness. Works well for normal to combination or slightly oily skin."
+  },
+  {
+    "name": "Amarte Exfolipowder",
+    "category": "Exfoliant",
+    "description": "A gentle, water-activated powder cleanser and exfoliant that helps smooth texture. Typically used a few times per week instead of a regular cleanser."
+  },
+  {
+    "name": "Dr. Haushka Rose Day Cream",
+    "category": "Moisturizer",
+    "description": "A rich, nourishing day cream with rose extracts designed for dry or sensitive skin. Best used in the morning or cooler weather for extra moisture."
+  },
+  {
+    "name": "La Roche-Posay SPF",
+    "category": "Sunscreen",
+    "description": "A broad-spectrum facial sunscreen that protects against UVA/UVB rays. Should be used every morning as the last step in the skincare routine."
+  }
+]
